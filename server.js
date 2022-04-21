@@ -40,27 +40,6 @@ app.post('/api/notes', (req, res) => {
 
 
 
-function deleteNote(id, notesArray) {
-    for (let i = 0; i < notesArray.length; i++) {
-        let note = notesArray[i];
-
-        if (note.id == id) {
-            notesArray.splice(i, 1);
-            fs.writeFileSync(
-                path.join(__dirname, './db/db.json'),
-                JSON.stringify(notesArray, null, 2)
-            );
-            break;
-        }
-    }
-}
-
-// Delete notes
-app.delete('/api/notes/:id', (req, res) => {
-    deleteNote(req.params.id, allNotes);
-    res.json(true);
-});
-
 // Start Listing
 app.listen(PORT, () => {
     console.log(`API listening on port: ${PORT}!`);
