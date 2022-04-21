@@ -2,7 +2,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const { v1: uuidv1 } = require('uuid');
+const { "v4": uuidv4 } = require('uuid');
 // Reference the list of notes
 const allNotes = require('./db/db.json');
 
@@ -32,7 +32,7 @@ app.get('/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     const allNotes =  JSON.parse(fs.readFileSync('./db/db.json'));
     const newNote = req.body;
-    newNote.id = uuidv1();
+    newNote.id = uuidv4();
     allNotes.push(newNote);
     fs.writeFileSync('./db/db.json',JSON.stringify(allNotes));
     res.json(allNotes);
