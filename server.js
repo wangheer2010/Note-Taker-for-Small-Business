@@ -38,7 +38,13 @@ app.post('/api/notes', (req, res) => {
     res.json(allNotes);
 });
 
-
+// Delete notes
+app.delete("/api/notes/:id", (req, res) => {
+    const allNotes = JSON.parse(fs.readFileSync("./db/db.json"));
+    const delNote = allNotes.filter((rmvNote) => rmvNote.id !== req.params.id);
+    fs.writeFileSync("./db/db.json", JSON.stringify(delNote));
+    res.json(delNote);
+})
 
 // Start Listing
 app.listen(PORT, () => {
